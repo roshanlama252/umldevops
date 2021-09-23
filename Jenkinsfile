@@ -1,11 +1,11 @@
-podTemplate(yaml: '''
+podTemplate(yaml:
     apiVersion: v1
     kind: Pod
     spec:
       containers:
       - name: 'maven' 
         image: 'maven:3.8.1-jdk-8'
-    ''') {
+    ) {
 
     node(POD_LABEL) {
         stage('Build') {
@@ -15,7 +15,6 @@ podTemplate(yaml: '''
                     sh '''
                     echo "maven build"
                     mvn -B -DskipTests clean package
-                    ''' 
             }
         }
     }
