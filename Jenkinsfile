@@ -5,6 +5,8 @@ podTemplate(yaml: '''
       containers:
       - name: 'jnlp' 
         image: 'maven:3.8.1-adoptopenjdk-11'
+        commands: 'sleep'
+        args: '30d'
     ''') {
 
     node(POD_LABEL) {
