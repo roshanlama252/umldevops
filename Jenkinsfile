@@ -1,6 +1,6 @@
 podTemplate(containers: [
     containerTemplate (
-      - name: 'maven' 
+      - name: 'maven',
         image: 'maven:3.8.1-jdk-8',
         commands: 'sleep',
         args: '30d'
