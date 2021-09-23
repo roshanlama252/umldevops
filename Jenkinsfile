@@ -1,18 +1,21 @@
-podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: 'jnlp' 
-        image: 'maven:3.8.1-adoptopenjdk-11'
-        commands: 'sleep'
+podTemplate(containers: [
+    containerTemplate (
+      - name: 'maven' 
+        image: 'maven:3.8.1-jdk-8',
+        commands: 'sleep',
         args: '30d'
-    ''') {
+        ),
+    ]) {
 
     node(POD_LABEL) {
-        stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package' 
+        stage('Build') {
+            git 'https://github.com/dlambrig/simple-java-maven-app.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh '''
+                    echo "maven build"
+                    mvn -B -DskipTests clean package
+                    ''' 
             }
         }
     }
