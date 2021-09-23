@@ -1,11 +1,11 @@
-podTemplate(containers: [
-    containerTemplate (
-      - name: 'maven',
-        image: 'maven:3.8.1-jdk-8',
-        commands: 'sleep',
-        args: '30d'
-        ),
-    ]) {
+podTemplate(yaml: '''
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: 'maven' 
+        image: 'maven:3.8.1-jdk-8'
+    ''') {
 
     node(POD_LABEL) {
         stage('Build') {
