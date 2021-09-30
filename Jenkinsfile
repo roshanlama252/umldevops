@@ -1,32 +1,37 @@
 podTemplate(containers: [
     containerTemplate(
-        name: 'maven', 
-        image: 'maven:3.8.1-jdk-8', 
-        command: 'sleep', 
+        name: 'gradle',
+        image: 'gradle:6.3-jdk14',
+        command: 'sleep',
         args: '30d'
-        )
-  ],
+        ),
+])  {
 
-  volumes: [
-  persistentVolumeClaim(
-      mountPath: '/root/.m2/repository',
-      claimName: 'jenkins-pv-claim',
-      readOnly: false
-      )
-  ])
-
-{
     node(POD_LABEL) {
-        stage('Get a Maven project') {
-            git 'https://github.com/dlambrig/simple-java-maven-app.git'
-            container('maven') {
-                stage('Build a Maven project') {
-                    sh '''
-                    echo "maven build"
-                    mvn -B -DskipTests clean package
-                    '''
+        stage('Run pipeline against a gradle project') {
+            git 'https://github.com/dlambrig/Continuous-Delivery-with-Docker-and-Jenkins-Second-Edition.git'
+            container('gradle') {
+                stage('Build a gradle project') {
+                sh '''
+                cd Chapter08/sample1
+                chmod +x gradlew
+                ./gradlew test
+                '''
                 }
-            }
+        stage("Code coverage") {
+            sh '''
+            pwd
+            cd Chapter08/sample1
+            ./gradlew jacocoTestCoverageVerification
+            ./gradlew jacocoTestReport
+            '''
+            publishHTML (target: [
+                reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
+                reportFiles: 'index.html',
+                reportName: "JaCoCo Report"
+             ])
         }
+      }
     }
+  }
 }
