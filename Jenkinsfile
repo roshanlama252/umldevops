@@ -35,7 +35,7 @@ podTemplate(containers: [
             sh '''
             pwd
             cd Chapter08/sample1
-            ./gradlew jacococheckstyleMain
+            ./gradlew checkstyleMain
             '''
             publishHTML (target: [
                 reportDir: 'Chapter08/sample1/build/reports/jacoco/checkstyle/html',
