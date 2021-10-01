@@ -29,8 +29,8 @@ podTemplate(containers: [
                 reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
                 reportFiles: 'index.html',
                 reportName: "JaCoCo Report"
-                }
             ])
+        }
       }
     }
   }
