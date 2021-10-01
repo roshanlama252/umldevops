@@ -39,6 +39,7 @@ podTemplate(containers: [
             } catch {
               echo "checkstyle fails"
             }
+            '''
         }
       }
   }
