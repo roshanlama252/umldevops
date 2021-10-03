@@ -37,6 +37,11 @@ podTemplate(containers: [
             cd Chapter08/sample1
             ./gradlew checkstyleMain
             '''
+            try {
+            ./gradlew checkstyleMain
+            } catch {
+            echo "checkstyle fails"
+            }
             publishHTML (target: [
                 reportDir: 'Chapter08/sample1/build/reports/jacoco/checkstyle/html',
                 reportFiles: 'main.html',
