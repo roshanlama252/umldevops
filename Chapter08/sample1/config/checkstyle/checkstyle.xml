@@ -5,10 +5,8 @@
 
 <module name="Checker">
      <module name="TreeWalker">
-          <property name="scope" value="public"/>
-                <module name="JavadocType">
-                <module name="ConstantName"/>
-                </module>
-                </module>
+          <module name="JavadocType">
+                <property name="scope" value="public"/>
+          </module>
      </module>
 </module>
