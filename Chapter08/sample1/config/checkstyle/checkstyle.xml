@@ -10,3 +10,5 @@
           </module>
      </module>
 </module>
+
+<module name="ConstantName"/>
