@@ -6,8 +6,8 @@
 <module name="Checker">
      <module name="TreeWalker">
           <module name="ConstantName">
-                <property name="applyToPublic" value="false"/>
-                <property name="applyToProtected" value="false"/>
+                <property name="format"
+                    value="^3?$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
           </module>
      </module>
 </module>
