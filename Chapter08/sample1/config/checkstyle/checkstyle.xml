@@ -7,7 +7,7 @@
      <module name="TreeWalker">
           <module name="ConstantName">
                 <property name="format"
-                    value="^3"/>
+                    value="^umlNUMBER1"/>
           </module>
      </module>
 </module>
