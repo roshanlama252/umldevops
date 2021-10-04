@@ -42,7 +42,7 @@ podTemplate(containers: [
                 echo "checkstyle fails"
             }
             publishHTML (target: [
-                reportDir: 'Chapter08/sample1/build/reports/checkstyle/main.html',
+                reportDir: 'Chapter08/sample1/build/reports/checkstyle/html',
                 reportFiles: 'main.html',
                 reportName: "jacoco checkstyle"
             ])
