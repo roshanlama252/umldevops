@@ -33,14 +33,14 @@ podTemplate(containers: [
         }
         stage("jacoco checkstyle test") {
             try {
-            sh '''
-            pwd
-            cd Chapter08/sample1/build/reports/checkstyle
-            ./gradlew checkstyleMain
+                sh '''
+                pwd
+                cd Chapter08/sample1/build/reports/checkstyle
+                ./gradlew checkstyleMain
+                '''
             } catch {
-            echo "checkstyle fails"
+                echo "checkstyle fails"
             }
-            '''
             publishHTML (target: [
                 reportDir: 'Chapter08/sample1/build/reports/jacoco/checkstyle/html',
                 reportFiles: 'main.html',
