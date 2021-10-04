@@ -7,7 +7,7 @@
      <module name="TreeWalker">
           <module name="ConstantName">
                 <property name="format"
-                    value="^3?$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+                    value="^3"/>
           </module>
      </module>
 </module>
