@@ -34,7 +34,7 @@ podTemplate(containers: [
         stage("jacoco checkstyle test") {
             sh '''
             pwd
-            cd Chapter08/sample1/build/reports/checkstyle/main.html
+            cd Chapter08/sample1/build/reports/checkstyle
             try {
             ./gradlew checkstyleMain
             } catch {
