@@ -35,7 +35,7 @@ podTemplate(containers: [
             try {
                 sh '''
                 pwd
-                cd Chapter08/sample1/build/reports/checkstyle
+                cd Chapter08/sample1
                 ./gradlew checkstyleMain
                 '''
             } catch (exc) {
