@@ -38,8 +38,6 @@ podTemplate(containers: [
             } catch {
                 echo "checkstyle fails"
             }
-            .
-            .
             publishHTML (target: [
                 reportFiles: 'main.html',
                 reportName: "jacoco checkstyle"
