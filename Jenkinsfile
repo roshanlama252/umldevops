@@ -38,7 +38,7 @@ podTemplate(containers: [
                 cd Chapter08/sample1/build/reports/checkstyle
                 ./gradlew checkstyleMain
                 '''
-            } catch {
+            } catch (exc) {
                 echo "checkstyle fails"
             }
             publishHTML (target: [
