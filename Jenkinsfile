@@ -36,7 +36,7 @@ podTemplate(containers: [
                 sh '''
                 pwd
                 cd Chapter08/sample1
-                ./gradlew checkstyleMain --stacktrace
+                ./gradlew checkstyleMain
                 '''
             } catch (exc) {
                 echo "checkstyle fails"
