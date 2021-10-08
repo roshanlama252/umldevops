@@ -19,33 +19,43 @@ podTemplate(containers: [
                 '''
                 }
         stage("Code coverage") {
-            sh '''
-            pwd
-            cd Chapter08/sample1
-            ./gradlew jacocoTestCoverageVerification
-            ./gradlew jacocoTestReport
-            '''
-            publishHTML (target: [
-                reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
-                reportFiles: 'index.html',
-                reportName: "JaCoCo Report"
-            ])
+            when {
+                expression {
+                    return env.GIT_BRANCH == "origin/feature"
+                }   
+            }
+            steps {
+                sh '''
+                pwd
+                cd Chapter08/sample1
+                ./gradlew jacocoTestCoverageVerification
+                ./gradlew jacocoTestReport
+                '''
+                publishHTML (target: [
+                   reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
+                   reportFiles: 'index.html',
+                   reportName: "JaCoCo Report"
+                ])
+                }
         }
         stage("jacoco checkstyle test") {
-            try {
+            when {
+                    expression {
+                        return env.GIT_BRANCH == "origin/master"
+                     }
+                }
+            steps {
                 sh '''
                 pwd
                 cd Chapter08/sample1
                 ./gradlew checkstyleMain
                 '''
-            } catch (exc) {
-                echo "checkstyle fails"
-            }
-            publishHTML (target: [
-                reportDir: 'Chapter08/sample1/build/reports/checkstyle',
-                reportFiles: 'main.html',
-                reportName: "jacoco checkstyle"
-            ])
+                publishHTML (target: [
+                    reportDir: 'Chapter08/sample1/build/reports/checkstyle',
+                    reportFiles: 'main.html',
+                    reportName: "jacoco checkstyle"
+                ])
+            } 
         }
       }
     }
