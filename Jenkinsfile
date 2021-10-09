@@ -36,11 +36,7 @@ podTemplate(containers: [
              }
         }
         stage("jacoco checkstyle test") {
-            when {
-                    expression {
-                        return env.GIT_BRANCH == "origin/master"
-                     }
-                }
+            if (env.GIT_BRANCH == "origin/master") {
             steps {
                 sh '''
                 pwd
@@ -53,6 +49,7 @@ podTemplate(containers: [
                     reportName: "jacoco checkstyle"
                 ])
             } 
+          }
         }
       }
     }
