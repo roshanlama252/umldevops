@@ -19,11 +19,7 @@ podTemplate(containers: [
                 '''
                 }
         stage("Code coverage") {
-            when {
-                expression {
-                    return env.GIT_BRANCH == "origin/feature"
-                }   
-            }
+            if (env.GIT_BRANCH == "origin/feature") {
             steps {
                 sh '''
                 pwd
@@ -37,13 +33,10 @@ podTemplate(containers: [
                    reportName: "JaCoCo Report"
                 ])
                 }
+             }
         }
         stage("jacoco checkstyle test") {
-            when {
-                    expression {
-                        return env.GIT_BRANCH == "origin/master"
-                     }
-                }
+            if (env.GIT_BRANCH == "origin/master") {
             steps {
                 sh '''
                 pwd
@@ -56,6 +49,7 @@ podTemplate(containers: [
                     reportName: "jacoco checkstyle"
                 ])
             } 
+          }
         }
       }
     }
