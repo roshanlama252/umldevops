@@ -19,7 +19,7 @@ podTemplate(containers: [
                 '''
                 }
         stage("Code coverage") {
-            if env.GIT_BRANCH ==~ "origin/feature" {
+            if (env.GIT_BRANCH == "origin/feature") {
             steps {
                 sh '''
                 pwd
