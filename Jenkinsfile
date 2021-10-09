@@ -36,7 +36,7 @@ podTemplate(containers: [
              }
         }
         stage("jacoco checkstyle test") {
-            if (env.GIT_BRANCH == "master") {
+            if (env.GIT_BRANCH == "remotes/origin/master") {
             steps {
                 sh '''
                 pwd
