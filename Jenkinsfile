@@ -7,8 +7,9 @@ pipeline {
               - name: gradle
                 image: gradle:6.3-jdk14 
             '''
-            }  
-        } 
+        }  
+    }
+    stages { 
 
         stage('Run pipeline against a gradle project') {
             git 'https://github.com/roshanlama252/umldevops.git'
@@ -59,4 +60,5 @@ pipeline {
         }
       }
     }
+  }
 }
