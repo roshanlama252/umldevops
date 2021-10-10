@@ -12,6 +12,12 @@ pipeline {
 
     stages {
         stage('debug') {
+            steps {
+                echo env.GIT_BRANCH
+                echo env.GIT_LOCAL_BRANCH
+                }
+         }
+         stage('master') {
             when {
                 expression { 
                     return env.GIT_BRANCH == "origin/main"
