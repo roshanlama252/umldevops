@@ -22,7 +22,6 @@ podTemplate(containers: [
             when {
                 expression { GIT_BRANCH == "origin/main"}
             }
-                steps {
                 sh '''
                 pwd
                 cd Chapter08/sample1
@@ -34,7 +33,6 @@ podTemplate(containers: [
                    reportFiles: 'index.html',
                    reportName: "JaCoCo Report"
                 ])
-                }
         }
         stage("jacoco checkstyle test") {
             when {
