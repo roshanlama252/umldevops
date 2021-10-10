@@ -18,7 +18,7 @@ podTemplate(containers: [
                 ./gradlew test
                 '''
                 }
-        stage("Code coverage") {
+        stage('Code coverage') {
             when {
                 expression { GIT_BRANCH == "origin/main"}
             }
