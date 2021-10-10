@@ -21,7 +21,7 @@ podTemplate(containers: [
         stage("Code coverage") {
             when {
                 expression { GIT_BRANCH == "origin/main"}
-                }
+            }
                 steps {
                 sh '''
                 pwd
@@ -39,6 +39,7 @@ podTemplate(containers: [
         stage("jacoco checkstyle test") {
             when {
                 expression { GIT_BRANCH == "origin/feature"}
+            }
                 sh '''
                 pwd
                 cd Chapter08/sample1
