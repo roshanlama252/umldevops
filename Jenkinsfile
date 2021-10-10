@@ -14,16 +14,14 @@ pipeline {
         stage('Run pipeline against a gradle project') {
             steps {
                 git 'https://github.com/roshanlama252/umldevops.git'
-                    stage('Build a gradle project') {
-                    sh '''
-                    cd Chapter08/sample1
-                    chmod +x gradlew
-                    ./gradlew test
-                    '''
-                }
+                sh '''
+                cd Chapter08/sample1
+                chmod +x gradlew
+                ./gradlew test
+                '''
             }
         }
-        stage("Code coverage") {
+        stage('Code coverage') {
             when {
                 expression { GIT_BRANCH == "origin/main"}
                 }
@@ -42,7 +40,7 @@ pipeline {
                     ])
                 }
         }
-        stage("jacoco checkstyle test") {
+        stage('jacoco checkstyle test') {
             when {
                 expression { GIT_BRANCH == "origin/feature"}
                 steps {
