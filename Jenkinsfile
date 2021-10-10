@@ -1,13 +1,15 @@
-podTemplate(containers: [
-    containerTemplate(
-        name: 'gradle',
-        image: 'gradle:6.3-jdk14',
-        command: 'sleep',
-        args: '30d'
-        ),
-])  {
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
+            spec:
+              containers:
+              - name: gradle
+                image: gradle:6.3-jdk14 
+            '''
+            }  
+        } 
 
-    node(POD_LABEL) {
         stage('Run pipeline against a gradle project') {
             git 'https://github.com/roshanlama252/umldevops.git'
             container('gradle') {
@@ -23,35 +25,38 @@ podTemplate(containers: [
                 expression { GIT_BRANCH == "origin/main"}
                 }
                 steps {
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew jacocoTestCoverageVerification
-                ./gradlew jacocoTestReport
-                '''
-                publishHTML (target: [
-                   reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
-                   reportFiles: 'index.html',
-                   reportName: "JaCoCo Report"
-                ])
+                    echo "I am a master branch"
+                    sh '''
+                    pwd
+                    cd Chapter08/sample1
+                    ./gradlew jacocoTestCoverageVerification
+                    ./gradlew jacocoTestReport
+                    '''
+                    publishHTML (target: [
+                        reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
+                        reportFiles: 'index.html',
+                        reportName: "JaCoCo Report"
+                    ])
                 }
         }
         stage("jacoco checkstyle test") {
             when {
                 expression { GIT_BRANCH == "origin/feature"}
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew checkstyleMain
-                '''
-                publishHTML (target: [
-                    reportDir: 'Chapter08/sample1/build/reports/checkstyle',
-                    reportFiles: 'main.html',
-                    reportName: "jacoco checkstyle"
-                ])
+                steps {
+                    echo "I am a feature branch"
+                    sh '''
+                    pwd
+                    cd Chapter08/sample1
+                    ./gradlew checkstyleMain
+                    '''
+                    publishHTML (target: [
+                        reportDir: 'Chapter08/sample1/build/reports/checkstyle',
+                        reportFiles: 'main.html',
+                        reportName: "jacoco checkstyle"
+                    ])
+                }
             } 
         }
       }
     }
-  }
 }
