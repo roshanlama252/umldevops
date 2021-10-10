@@ -20,7 +20,7 @@ pipeline {
          stage('master') {
             when {
                 expression { 
-                    return env.GIT_BRANCH == "origin/main"
+                    return env.GIT_BRANCH == "master"
                 }
             }
             steps {
@@ -30,7 +30,7 @@ pipeline {
         stage('jacoco checkstyle test') {
             when {
                 expression { 
-                    return env.GIT_BRANCH == "origin/feature"
+                    return env.GIT_BRANCH == "feature"
                 }
             }
             steps {
