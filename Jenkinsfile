@@ -34,7 +34,7 @@ podTemplate(containers: [
                    reportName: "JaCoCo Report"
                 ])
         }
-        stage("jacoco checkstyle test") {
+        stage('jacoco checkstyle test') {
             when {
                 expression { GIT_BRANCH == "origin/feature"}
             }
