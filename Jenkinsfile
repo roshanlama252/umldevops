@@ -13,7 +13,6 @@ pipeline {
 
         stage('Run pipeline against a gradle project') {
             git 'https://github.com/roshanlama252/umldevops.git'
-            container('gradle') {
                 stage('Build a gradle project') {
                 sh '''
                 cd Chapter08/sample1
