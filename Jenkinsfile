@@ -7,7 +7,6 @@ podTemplate(containers: [
         ),
 ])  {
 
-    node(POD_LABEL) {
     stages {
         stage('Run pipeline against a gradle project') {
             git 'https://github.com/roshanlama252/umldevops.git'
@@ -52,6 +51,5 @@ podTemplate(containers: [
             } 
         }
       }
-    }
     }
 }
