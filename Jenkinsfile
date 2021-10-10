@@ -1,55 +1,31 @@
-podTemplate(containers: [
-    containerTemplate(
-        name: 'gradle',
-        image: 'gradle:6.3-jdk14',
-        command: 'sleep',
-        args: '30d'
-        ),
-])  {
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+      spec:
+        containers:
+        - name: gradle
+          image: gradle:6.3-jdk14 
+        '''
+      } 
+  }
 
     stages {
-        stage('Run pipeline against a gradle project') {
-            git 'https://github.com/roshanlama252/umldevops.git'
-            container('gradle') {
-                stage('Build a gradle project') {
-                sh '''
-                cd Chapter08/sample1
-                chmod +x gradlew
-                ./gradlew test
-                '''
-                }
-        stage('Code coverage') {
+        stage('debug') {
             when {
                 expression { GIT_BRANCH == "origin/main"}
             }
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew jacocoTestCoverageVerification
-                ./gradlew jacocoTestReport
-                '''
-                publishHTML (target: [
-                   reportDir: 'Chapter08/sample1/build/reports/jacoco/test/html',
-                   reportFiles: 'index.html',
-                   reportName: "JaCoCo Report"
-                ])
+            steps {
+                echo "I am a master branch"
+                } 
         }
         stage('jacoco checkstyle test') {
             when {
                 expression { GIT_BRANCH == "origin/feature"}
             }
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew checkstyleMain
-                '''
-                publishHTML (target: [
-                    reportDir: 'Chapter08/sample1/build/reports/checkstyle',
-                    reportFiles: 'main.html',
-                    reportName: "jacoco checkstyle"
-                ])
-            } 
+            steps {
+                echo "I am a feature branch"
+            }
         }
-      }
     }
 }
