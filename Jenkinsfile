@@ -35,6 +35,11 @@ pipeline {
             }
             steps {
                 echo "I am a feature branch"
+                sh '''
+                pwd
+                cd Chapter08/sample1
+                ./gradlew checkstyleMain
+                '''
             }
         }
     }
