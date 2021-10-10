@@ -17,7 +17,7 @@ pipeline {
                 echo env.GIT_LOCAL_BRANCH
                 }
          }
-         stage('master') {
+         stage('code coverage') {
             when {
                 expression { 
                     return env.GIT_BRANCH == "master"
@@ -25,6 +25,12 @@ pipeline {
             }
             steps {
                 echo "I am a master branch"
+                sh '''
+                pwd
+                cd Chapter08/sample1
+                ./gradlew jacocoTestCoverageVerification
+                ./gradlew jacocoTestReport
+                '''
                 } 
         }
         stage('jacoco checkstyle test') {
