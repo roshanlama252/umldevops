@@ -12,14 +12,17 @@ pipeline {
     stages { 
 
         stage('Run pipeline against a gradle project') {
-            git 'https://github.com/roshanlama252/umldevops.git'
-                stage('Build a gradle project') {
-                sh '''
-                cd Chapter08/sample1
-                chmod +x gradlew
-                ./gradlew test
-                '''
+            steps {
+                git 'https://github.com/roshanlama252/umldevops.git'
+                    stage('Build a gradle project') {
+                    sh '''
+                    cd Chapter08/sample1
+                    chmod +x gradlew
+                    ./gradlew test
+                    '''
                 }
+            }
+        }
         stage("Code coverage") {
             when {
                 expression { GIT_BRANCH == "origin/main"}
@@ -56,7 +59,6 @@ pipeline {
                     ])
                 }
             } 
-         }
          }
     }
 }
