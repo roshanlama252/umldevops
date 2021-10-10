@@ -13,7 +13,9 @@ pipeline {
     stages {
         stage('debug') {
             when {
-                expression { GIT_BRANCH == "origin/main"}
+                expression { 
+                    return env.GIT_BRANCH == "origin/main"
+                }
             }
             steps {
                 echo "I am a master branch"
@@ -21,7 +23,9 @@ pipeline {
         }
         stage('jacoco checkstyle test') {
             when {
-                expression { GIT_BRANCH == "origin/feature"}
+                expression { 
+                    return env.GIT_BRANCH == "origin/feature"
+                }
             }
             steps {
                 echo "I am a feature branch"
