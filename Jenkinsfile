@@ -43,7 +43,7 @@ podTemplate(yaml: '''
           sh '''
           cd Chapter08/sample1/
           ./gradlew build
-          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /var/jenkins-home/
+          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /mnt
           '''
         }
       }
@@ -56,7 +56,7 @@ podTemplate(yaml: '''
           echo 'FROM openjdk:8-jre' > Dockerfile
           echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
           echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
-          mv /var/jenkins-home/calculator-0.0.1-SNAPSHOT.jar app.jar
+          mv /mnt/calculator-0.0.1-SNAPSHOT.jar app.jar
           /kaniko/executor --context `pwd` --destination roshanlama252/kaniko-demo-image:1.0
           '''
         }
