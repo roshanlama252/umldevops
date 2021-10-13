@@ -13,7 +13,7 @@ podTemplate(yaml: '''
         - name: shared-storage
           mountPath: /mnt
       - name: kaniko
-        image: gcr.io/kaniko-project/executor:debug
+        image: roshanlama252/kaniko-demo-image:1.0
         command:
         - sleep
         args:
@@ -56,7 +56,7 @@ podTemplate(yaml: '''
           echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
           echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
           mv /mnt/calculator-0.0.1-SNAPSHOT.jar app.jar
-          /kaniko/executor --context `pwd` --destination roshanlama252/hello-kaniko:1.0
+          /kaniko/executor --context `pwd` --destination roshanlama252/kaniko-demo-image:1.0
           '''
         }
       }
