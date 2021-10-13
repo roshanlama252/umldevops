@@ -11,7 +11,7 @@ podTemplate(yaml: '''
         - 99d
         volumeMounts:
         - name: shared-storage
-          mountPath: /var/jenkins_home
+          mountPath: /mnt
       - name: kaniko
         image: roshanlama252/kaniko-demo-image:1.0
         command:
@@ -20,7 +20,7 @@ podTemplate(yaml: '''
         - 9999999
         volumeMounts:
         - name: shared-storage
-          mountPath: /var/jenkins_home
+          mountPath: /mnt
         - name: kaniko-secret
           mountPath: /kaniko/.docker
       restartPolicy: Never
@@ -43,7 +43,7 @@ podTemplate(yaml: '''
           sh '''
           cd Chapter08/sample1/
           ./gradlew build
-          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /mnt
+          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /mnt/
           '''
         }
       }
