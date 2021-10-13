@@ -13,7 +13,7 @@ podTemplate(yaml: '''
         - name: shared-storage
           mountPath: /mnt
       - name: kaniko
-        image: roshanlama252/kaniko-demo-image:1.0
+        image: gcr.io/kaniko-project/executor:debug
         command:
         - sleep
         args:
