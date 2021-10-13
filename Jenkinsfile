@@ -43,7 +43,7 @@ podTemplate(yaml: '''
           sh '''
           cd Chapter08/sample1/
           ./gradlew build
-          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /var/jenkins-home
+          mv ./build/libs/calculator-0.0.1-SNAPSHOT.jar /var/jenkins-home/
           '''
         }
       }
