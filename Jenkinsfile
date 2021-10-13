@@ -11,7 +11,7 @@ podTemplate(yaml: '''
         - 99d
         volumeMounts:
         - name: shared-storage
-          mountPath: /mnt
+          mountPath: /var/jenkins_home
       - name: kaniko
         image: roshanlama252/kaniko-demo-image:1.0
         command:
@@ -20,7 +20,7 @@ podTemplate(yaml: '''
         - 9999999
         volumeMounts:
         - name: shared-storage
-          mountPath: /mnt
+          mountPath: /var/jenkins_home
         - name: kaniko-secret
           mountPath: /kaniko/.docker
       restartPolicy: Never
