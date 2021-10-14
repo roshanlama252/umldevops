@@ -2,11 +2,10 @@ package com.leszko.calculator;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-@SpringBootApplication(scanBasePackages={
-"com.leszko.calculator"})
-
-@Service
+/**
+ *
+*@Service
+*/
 public class Calculator {
         final static int umlNUMBER1 = 3;
 	@Cacheable("sum")
