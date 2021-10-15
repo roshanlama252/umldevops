@@ -49,6 +49,38 @@ podTemplate(yaml: '''
       }
     }
 
+    stage('code coverage') {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
+            steps {
+                echo "I am a master branch"
+                sh '''
+                pwd
+                cd Chapter08/sample1
+                ./gradlew jacocoTestCoverageVerification
+                ./gradlew jacocoTestReport
+                '''
+                }
+        }
+        stage('jacoco checkstyle test') {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "feature"
+                }
+            }
+            steps {
+                echo "I am a feature branch"
+                sh '''
+                pwd
+                cd Chapter08/sample1
+                ./gradlew checkstyleMain
+                '''
+            }
+        }
+
     stage('Build Java Image') {
       container('kaniko') {
         stage('Build a gradle project') {
