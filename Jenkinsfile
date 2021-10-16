@@ -12,6 +12,7 @@ pipeline {
 
     stages {
         stage('debug') {
+          git 'https://github.com/roshanlama252/umldevops.git'
             steps {
                 echo env.GIT_BRANCH
                 echo env.GIT_LOCAL_BRANCH
