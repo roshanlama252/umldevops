@@ -35,7 +35,7 @@ podTemplate(yaml: '''
             - key: .dockerconfigjson
               path: config.json
 ''') {
-  node(kubernetes) {
+  node('kubernetes') {
     stage('Get a gradle project') {
       git 'https://github.com/roshanlama252/umldevops.git'
       container('gradle') {
