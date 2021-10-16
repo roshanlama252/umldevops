@@ -87,7 +87,7 @@ podTemplate(yaml: '''
             - key: .dockerconfigjson
               path: config.json
 ''') {
-  node('kubernetes') {
+  node('POD_LABEL') {
     stage('Get a gradle project') {
       git 'https://github.com/roshanlama252/umldevops.git'
       container('gradle') {
