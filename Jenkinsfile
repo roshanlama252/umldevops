@@ -103,7 +103,7 @@ podTemplate(yaml: '''
     stage('Push Image to feature') {
       container('kaniko') {
         stage('Build a gradle project') {
-          if (env.GIT_BRANCH == 'feature'){
+          if (env.BRANCH_NAME == 'feature'){
             sh '''
             echo 'FROM openjdk:8-jre' > Dockerfile
             echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
