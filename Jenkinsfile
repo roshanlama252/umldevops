@@ -128,7 +128,7 @@ podTemplate(yaml: '''
     }
   }
 
-  stage('Build Image to Release') {
+  stage('Build Image to release') {
       container('kaniko') {
         stage('Push Image from Release') {
           if (env.BRANCH_NAME == 'release'){
