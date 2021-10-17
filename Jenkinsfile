@@ -36,11 +36,10 @@ pipeline {
         stage('jacoco checkstyle test') {
             when {
                 expression {
-                    return env.GIT_BRANCH == "feature"
+                    return env.GIT_BRANCH ==~ (/feature|master/)
                 }
             }
             steps {
-                echo "I am a feature branch"
                 sh '''
                 pwd
                 cd Chapter08/sample1
