@@ -101,47 +101,16 @@ podTemplate(yaml: '''
       }
     }
 
-    stage('code coverage') {
-            when {
-                expression {
-                    return env.GIT_BRANCH == "master"
-                }
-            }
-            steps {
-                echo "I am a master branch"
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew jacocoTestCoverageVerification
-                ./gradlew jacocoTestReport
-                '''
-                }
-        }
-        stage('jacoco checkstyle test') {
-            when {
-                expression {
-                    return env.GIT_BRANCH == "feature"
-                }
-            }
-            steps {
-                echo "I am a feature branch"
-                sh '''
-                pwd
-                cd Chapter08/sample1
-                ./gradlew checkstyleMain
-                '''
-            }
-        }
-
-    stage('Build Java Image') {
+    stage('Push Image to feature') {
       container('kaniko') {
         stage('Build a gradle project') {
+          if(env.GIT_BRANCH==feature){
           sh '''
           echo 'FROM openjdk:8-jre' > Dockerfile
           echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
           echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
           mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
-            /kaniko/executor --context `pwd` --destination roshanlama252/calculator-feature:0.6
+            /kaniko/executor --context `pwd` --destination roshanlama252/calculator-feature:0.1
           '''
         }
       }
