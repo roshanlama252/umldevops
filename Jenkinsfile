@@ -47,6 +47,19 @@ pipeline {
                 '''
             }
         }
+        stage('skip if branch playground') {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "playground"
+                }
+            }
+            steps {
+                script {
+                    skipRemainingStages = true
+                    println "skipRemainingStages = ${skipRemainingStages}"
+                }
+            }
+        }
     }
 }
 podTemplate(yaml: '''
