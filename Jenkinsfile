@@ -55,8 +55,7 @@ pipeline {
             }
             steps {
                 script {
-                    skipRemainingStages = true
-                    println "skipRemainingStages = ${skipRemainingStages}"
+                    sh "exit 1"
                 }
             }
         }
