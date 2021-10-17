@@ -100,9 +100,9 @@ podTemplate(yaml: '''
       }
     }
 
-    stage('Push Image to feature') {
+    stage('Build Image to feature') {
       container('kaniko') {
-        stage('Build a gradle project') {
+        stage('Push Image from Feature') {
           if (env.BRANCH_NAME == 'feature'){
             sh '''
             echo 'FROM openjdk:8-jre' > Dockerfile
@@ -110,6 +110,22 @@ podTemplate(yaml: '''
             echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
             mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
               /kaniko/executor --context `pwd` --destination roshanlama252/calculator-feature:0.1
+            '''
+        }
+      }
+    }
+  }
+
+  stage('Build Image to Release') {
+      container('kaniko') {
+        stage('Push Image from Release') {
+          if (env.BRANCH_NAME == 'release'){
+            sh '''
+            echo 'FROM openjdk:8-jre' > Dockerfile
+            echo 'COPY ./calculator-0.0.1-SNAPSHOT.jar app.jar' >> Dockerfile
+            echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
+            mv /mnt/calculator-0.0.1-SNAPSHOT.jar .
+              /kaniko/executor --context `pwd` --destination roshanlama252/calculator:1.0
             '''
         }
       }
