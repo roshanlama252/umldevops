@@ -7,7 +7,7 @@ podTemplate(yaml: '''
         image: gradle:jdk8
         env:
         - name: CALCIP
-          value: 10.1.1.216
+          value: 10.1.1.228
         command:
         - sleep
         args:
