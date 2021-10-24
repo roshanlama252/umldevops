@@ -23,7 +23,7 @@ public class StepDefinitions {
         this.b = b;
     }
 
-test    @When("^the calculator divides them$")
+    @When("^the calculator divides them$")
     public void the_calculator_sums_them() throws Throwable {
         String url = String.format("%s/sum?a=%s&b=%s", server, a, b);
         result = restTemplate.getForObject(url, String.class);
