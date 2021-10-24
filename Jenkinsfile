@@ -3,11 +3,8 @@ podTemplate(yaml: '''
     kind: Pod
     spec:
       containers:
-      - name: gradle
-        image: gradle:jdk8
-        env:
-        - name: CALCIP
-          value: 10.1.1.228
+      - name: centos
+        image: centos
         command:
         - sleep
         args:
@@ -15,16 +12,14 @@ podTemplate(yaml: '''
       restartPolicy: Never
 ''') {
   node(POD_LABEL) {
-    stage('Get a gradle project') {
+    stage('k8s') {
       git 'https://github.com/roshanlama252/umldevops.git'
-      container('gradle') {
-        stage('test calculator') {
+      container('centos') {
+        stage('stage calculator') {
           sh '''
-          cd Chapter09/sample3/
-          echo $CALCIP
-          chmod +x gradlew
-          ./gradlew acceptanceTest -Dcalculator.url=http://$CALCIP:8080
-          cat build/reports/tests/acceptanceTest/index.html
+          cd Chapter08/sample1/
+          curl -k -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://$KUBERNETES_SERVICE_HOST:$KUBERNETE_SERVICE_PORT/apis/apps/v1/namespaces/default/deployme nts -XPOST -H "Content-type: application/yaml" --data-binary @hazelcast.yaml
+          curl -k -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://$KUBERNETES_SERVICE_HOST:$KUBERNETE_SERVICE_PORT/apis/apps/v1/namespaces/default/deployme nts -XPOST -H "Content-type: application/yaml" --data-binary @calculator.yaml
           '''
         }
       }
