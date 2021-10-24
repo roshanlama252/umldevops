@@ -23,7 +23,7 @@ podTemplate(yaml: '''
           cd Chapter09/sample3/
           echo $CALCIP
           chmod +x gradlew
-          ./gradlew acceptanceTest -Dcalculator.url=http://$CALCIP:8080
+          ./gradlew acceptanceTest
           cat build/reports/tests/acceptanceTest/index.html
           '''
         }
