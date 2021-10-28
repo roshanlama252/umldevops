@@ -12,10 +12,10 @@ podTemplate(yaml: '''
       restartPolicy: Never
 ''') {
   node(POD_LABEL) {
-    stage('k8s') {
+    stage('Centos and K8s') {
       git 'https://github.com/roshanlama252/umldevops.git'
       container('centos') {
-        stage('stage calculator') {
+        stage('Rolling update calculator') {
           sh '''
           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x ./kubectl
