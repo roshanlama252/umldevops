@@ -17,14 +17,9 @@ podTemplate(yaml: '''
       container('centos') {
         stage('stage calculator') {
           sh '''
-          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl
-          mv ./kubectl /usr/local/bin/kubectl
-          kubectl cluster-info
-          kubectl version
           cd Chapter08/sample1/
-          kubectl apply -f hazelcast.yaml
-          kubectl apply -f calculator.yaml
+          curl -k -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://$KUBERNETES_SERVICE_HOST:$KUBERNETE_SERVICE_PORT/apis/apps/v1/namespaces/default/deployments -XPOST -H "Content-type: application/yaml" --data-binary @hazelcast.yaml
+          curl -k -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://$KUBERNETES_SERVICE_HOST:$KUBERNETE_SERVICE_PORT/apis/apps/v1/namespaces/default/deployments -XPOST -H "Content-type: application/yaml" --data-binary @calculator.yaml
           '''
         }
       }
