@@ -42,4 +42,3 @@ spec:
   ports:
     - name: httpport
       port: 8080
-      nodePort: 32002
