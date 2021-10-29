@@ -24,9 +24,9 @@ podTemplate(yaml: '''
           kubectl apply -f hazelcast.yaml --namespace=staging
           kubectl apply -f calculator.yaml --namespace=staging
           echo calculator add test
-          curl -i calculator-service.staging.svc.cluster.local:8080/sum?a=3\&b=3
+          curl -i calculator-service.staging.svc.cluster.local:8080/sum?a=3\\&b=3
           echo calculator div test
-          curl -i calculator-service.staging.svc.cluster.local:8080/div?a=3\&b=3
+          curl -i calculator-service.staging.svc.cluster.local:8080/div?a=3\\&b=3
           '''
         }
       }
